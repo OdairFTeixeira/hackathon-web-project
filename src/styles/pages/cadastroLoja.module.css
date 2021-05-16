@@ -1,0 +1,36 @@
+.pageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  width: 50rem;
+}
+
+.title {
+  color: #726973;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.iconTitle {
+  font-size: 25px;
+  color: #726973;
+  margin-right: 10px;
+}
+
+.button {
+  margin-top: 15px !important;
+}
+
+.input {
+  margin-top: 10px;
+}

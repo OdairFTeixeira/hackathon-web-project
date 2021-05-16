@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginCard {
+  width: 500px;
+  height: 100px;
+}
+
+.button {
+  margin-top: 15px !important;
+}
+
+.lockIcon {
+  font-size: 50px;
+  color: #a75252;
+  transition: filter 0.2s;
+}
+
+.lockIcon:hover {
+  filter: brightness(0.9);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.labelsContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.labelQuestion {
+  font-size: 12px;
+  padding-right: 5px;
+}
+
+.labelAction {
+  font-size: 12px;
+  transition: filter 0.2s;
+  color: #00a3ff;
+  text-decoration: underline;
+}
+.labelAction:hover {
+  cursor: pointer;
+  filter: brightness(0.7);
+}
