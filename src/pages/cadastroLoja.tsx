@@ -36,11 +36,24 @@ const CadastroLojas: React.FC = () => {
             <FontAwesomeIcon className={styles.iconTitle} icon={faFileSignature} />
             <h1 className={styles.title}>Cadastre sua loja</h1>
           </div>
-          <TextField className={styles.input} label="Nome da sua loja" fullWidth={true} />
-          <TextField className={styles.input} type="email" label="E-mail" fullWidth={true} />
-          <TextField className={styles.input} type="password" label="senha" fullWidth={true} />
-          <ImageUpload label="Logo" />
-          <TextField className={styles.input} type="color" focused={true} label="Escolha a cor padrão do seu site" fullWidth={true} />
+          <div className={styles.input}>
+            <TextField label="Nome da sua loja" fullWidth={true} />
+          </div>
+          <div className={styles.input}>
+            <TextField className={styles.input} type="email" label="E-mail" fullWidth={true} />
+          </div>
+          <div className={styles.input}>
+            <TextField className={styles.input} type="password" label="senha" fullWidth={true} />
+          </div>
+          <div className={styles.input}>
+            <TextField className={styles.input} type="cnpj" label="Cnpj" fullWidth={true} />
+          </div>
+          <div className={styles.input}>
+            <ImageUpload label="Logo" />
+          </div>
+          <div className={styles.input}>
+            <TextField className={styles.input} type="color" focused={true} label="Escolha a cor padrão do seu site" fullWidth={true} />
+          </div>
           <Button className={styles.button} variant="contained" color="secondary">
             Cadastrar
           </Button>
