@@ -1,6 +1,33 @@
-.container {
+.containerCorpo {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.containerTopo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 9rem;
+    padding: 1rem;
+}
+
+.botao {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.containerFiltro {
+    margin-top: 15px;
+}
+
+.filtro {
+    width: 100%;
+}
+
+.plusIcon {
+    margin-right: 10px;
 }
