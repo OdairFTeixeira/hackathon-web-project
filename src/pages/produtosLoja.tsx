@@ -1,17 +1,21 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AppBar, Button, TextField, Toolbar } from '@material-ui/core';
+import { AppBar, InputLabel, Select, TextField, Toolbar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import Produto from '../components/produto';
 import styles from '../styles/pages/produtosLoja.module.css';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const ProdutosLoja: React.FC = () => {
   const [filtro, setFiltro] = useState('');
   const [produtos, setProdutos] = useState([]);
+  const [ordenacao, setOrdenacao] = useState('');
 
-  const filtraProdutos = event => {
+  const handleFiltro = event => {
     setProdutos(produtosMockedList.filter(produto => produto.nome.toLowerCase().startsWith(event.target.value.toLowerCase())));
     setFiltro(event.target.value);
+  }
+
+  const handleOrdenacao = event => {
+    //Fazer requisicao ordenando conforme value
+    setOrdenacao(event.target.value);
   }
 
   const produtosMockedList = [
@@ -59,17 +63,28 @@ const ProdutosLoja: React.FC = () => {
       </Toolbar>
     </AppBar>
     <div className={styles.containerTopo}>
-      <h1>Controle de produtos</h1>
+      <h1>Produtos</h1>
       <div className={styles.containerFiltro}>
-        <TextField className={styles.filtro} value={filtro} onChange={event => filtraProdutos(event)} id="standard-basic" label="Pesquisa Produtos" />
-      </div>
-      <div className={styles.botao}>
-        <Button variant="contained" color="secondary">
-          <div className={styles.plusIcon}>
-            <FontAwesomeIcon icon={faPlus} />
-          </div>
-           Cadastrar
-        </Button>
+        <TextField 
+        className={styles.filtro} 
+        value={filtro} 
+        onChange={event => handleFiltro(event)} 
+        id="standard-basic" 
+        label="Pesquisa Produtos" />
+        <div className={styles.ordenacao}>
+          <InputLabel htmlFor="age-native-simple">Ordenacao</InputLabel>
+          <Select
+            native
+            value={ordenacao}
+            onChange={event => handleOrdenacao(event)}
+
+          >
+            <option aria-label="None" value="" />
+            <option value="ME">Menor Preço</option>
+            <option value="MA">Maior Preço</option>
+            <option value="OA">Ordem Alfabética</option>
+          </Select>
+        </div>
       </div>
     </div>
 
@@ -84,8 +99,6 @@ const ProdutosLoja: React.FC = () => {
     </section>
   </>);
 }
-
-
 
 
 export default ProdutosLoja;

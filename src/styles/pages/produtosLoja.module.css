@@ -13,21 +13,16 @@
     padding: 1rem;
 }
 
-.botao {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: 10px;
-}
-
 .containerFiltro {
+    display: flex;
+    flex-direction: row;
     margin-top: 15px;
 }
 
 .filtro {
-    width: 100%;
+    width: 25%;
 }
 
-.plusIcon {
-    margin-right: 10px;
+.ordenacao {
+    margin-left: 2rem;
 }
