@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import { faArrowLeft, faFileSignature } from '@fortawesome/free-solid-svg-icons';
@@ -9,11 +9,22 @@ import styles from '../styles/pages/cadastroLoja.module.css'
 
 const CadastroLojas: React.FC = () => {
   const router = useRouter();
+  const [nome, setNome] = useState('');
+  const [senha, setSenha] = useState('');
+  const [email, setEmail] = useState('');
+  const [imagem, setImagem] = useState('');
+  const [cor, setCor] = useState('');
 
   const handleGoToLogin = () => {
     router.push({
       pathname: '/login'
     });
+  }
+
+  const onSubmitHandler = event => {
+    event.preventDefault();
+
+    console.log({ nome, email, senha, imagem, cor });
   }
 
   return (
@@ -32,18 +43,47 @@ const CadastroLojas: React.FC = () => {
       <div className={styles.pageContainer}>
 
         <div className={styles.inputsContainer}>
-          <div className={styles.iconContainer}>
-            <FontAwesomeIcon className={styles.iconTitle} icon={faFileSignature} />
-            <h1 className={styles.title}>Cadastre sua loja</h1>
-          </div>
-          <TextField className={styles.input} label="Nome da sua loja" fullWidth={true} />
-          <TextField className={styles.input} type="email" label="E-mail" fullWidth={true} />
-          <TextField className={styles.input} type="password" label="senha" fullWidth={true} />
-          <ImageUpload label="Logo" />
-          <TextField className={styles.input} type="color" focused={true} label="Escolha a cor padrão do seu site" fullWidth={true} />
-          <Button className={styles.button} variant="contained" color="secondary">
-            Cadastrar
-          </Button>
+          <form onSubmit={onSubmitHandler}>
+            <div className={styles.iconContainer}>
+              <FontAwesomeIcon className={styles.iconTitle} icon={faFileSignature} />
+              <h1 className={styles.title}>Cadastre sua loja</h1>
+            </div>
+            <TextField
+              className={styles.input}
+              name="nome" value={nome}
+              label="Nome da sua loja"
+              fullWidth={true}
+              onChange={event => setNome(event.target.value)} />
+            <TextField
+              className={styles.input}
+              type="email"
+              label="E-mail"
+              name="email"
+              value={email}
+              onChange={event => setEmail(event.target.value)}
+              fullWidth={true} />
+            <TextField
+              className={styles.input}
+              type="password"
+              label="senha"
+              fullWidth={true}
+              name="senha"
+              value={senha}
+              onChange={event => setSenha(event.target.value)} />
+            <ImageUpload label="Logo" />
+            <TextField
+              className={styles.input}
+              type="color"
+              focused={true}
+              label="Escolha a cor padrão do seu site"
+              fullWidth={true}
+              name="cor"
+              value={cor}
+              onChange={event => setCor(event.target.value)} />
+            <Button className={styles.button} variant="contained" color="secondary" type="submit">
+              Cadastrar
+            </Button>
+          </form>
         </div>
       </div>
     </>
