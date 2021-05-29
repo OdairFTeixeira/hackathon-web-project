@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Toolbar } from '@material-ui/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit, faTrash, faStore } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 
 import styles from '../styles/pages/administracaoProdutos.module.css';
 
 const AdministracaoProdutos: React.FC = () => {
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleEditar = (event) => {
     }
@@ -15,73 +17,112 @@ const AdministracaoProdutos: React.FC = () => {
             nome: 'Gin',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'teste',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'asda',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'wsqwdwq',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'asd2',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'Gin2',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'teste2',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'asda2',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'wsqwdwq2',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
         },
         {
             nome: 'asd23',
             preco: 18.90,
             quantidade: 2,
-            editar: 'X',
-            excluir: 'X'
+        },
+        {
+            nome: 'Gin3',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'teste3',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'asda3',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'wsqwdwq3',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'asd24',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'Gin24',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'teste24',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'asda25',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'wsqwdwq2as',
+            preco: 18.90,
+            quantidade: 2,
+        },
+        {
+            nome: 'asd23dd',
+            preco: 18.90,
+            quantidade: 2,
         }
     ]
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
     return (
         <>
@@ -110,25 +151,36 @@ const AdministracaoProdutos: React.FC = () => {
                                     <TableCell>Nome</TableCell>
                                     <TableCell align="right">Preço</TableCell>
                                     <TableCell align="right">Quantidade</TableCell>
+                                    <TableCell align="right">Vender</TableCell>
                                     <TableCell align="right">Editar</TableCell>
                                     <TableCell align="right">Excluir</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => (
+                                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                                     <TableRow key={row.nome}>
                                         <TableCell component="th" scope="row">
                                             {row.nome}
                                         </TableCell>
                                         <TableCell align="right">{row.preco}</TableCell>
                                         <TableCell align="right">{row.quantidade}</TableCell>
-                                        <TableCell align="right" onClick={event => handleEditar(event)}>{row.editar}</TableCell>
-                                        <TableCell align="right">{row.excluir}</TableCell>
+                                        <TableCell align="right"><FontAwesomeIcon icon={faStore} /></TableCell>
+                                        <TableCell align="right" onClick={event => handleEditar(event)}><FontAwesomeIcon icon={faEdit} /></TableCell>
+                                        <TableCell align="right"><FontAwesomeIcon icon={faTrash} /></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[10, 25, 100]}
+                        component="div"
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
                 </Paper>
             </div>
         </>);
