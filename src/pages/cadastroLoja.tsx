@@ -3,16 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import { faArrowLeft, faFileSignature } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router'
-import { cadastroLojaService } from '../services/cadastro-loja'
 
 import ImageUpload from '../components/imageUpload'
 import styles from '../styles/pages/cadastroLoja.module.css'
+import { usuarioService } from '../services/usuario-service';
+import { cadastroLojaService } from '../services/cadastro-loja-service';
 
 const CadastroLojas: React.FC = () => {
   const router = useRouter();
   const [nome, setNome] = useState('');
   const [senha, setSenha] = useState('');
   const [email, setEmail] = useState('');
+  const [cnpj, setCnpj] = useState('');
   const [imagem, setImagem] = useState('');
   const [cor, setCor] = useState('');
 
@@ -22,10 +24,12 @@ const CadastroLojas: React.FC = () => {
     });
   }
 
-  const onSubmitHandler = event => {
+  const onSubmitHandler = async event => {
     event.preventDefault();
-
-    console.log({ nome, email, senha, imagem, cor });
+    await usuarioService.createUser({ email, password: senha, flg_admin: true });
+    await usuarioService.authenticate({ email, password: senha });
+    const lojaCadastrada = await cadastroLojaService.createStore({ nome, email, cnpj, color_standard: cor });
+    console.log(lojaCadastrada);
   }
 
   return (
@@ -71,6 +75,13 @@ const CadastroLojas: React.FC = () => {
               name="senha"
               value={senha}
               onChange={event => setSenha(event.target.value)} />
+            <TextField
+              className={styles.input}
+              label="CNPJ"
+              fullWidth={true}
+              name="cnpj"
+              value={cnpj}
+              onChange={event => setCnpj(event.target.value)} />
             <ImageUpload label="Logo" />
             <TextField
               className={styles.input}
@@ -81,7 +92,7 @@ const CadastroLojas: React.FC = () => {
               name="cor"
               value={cor}
               onChange={event => setCor(event.target.value)} />
-            <Button className={styles.button} onClick={() => cadastroLojaService.createUser()} variant="contained" color="secondary" type="submit">
+            <Button className={styles.button} variant="contained" color="secondary" type="submit">
               Cadastrar
             </Button>
           </form>
