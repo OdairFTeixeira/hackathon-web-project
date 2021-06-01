@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import { faArrowLeft, faFileSignature } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-nextjs-toast'
 
 import ImageUpload from '../components/imageUpload'
 import styles from '../styles/pages/cadastroLoja.module.css'
@@ -24,16 +25,26 @@ const CadastroLojas: React.FC = () => {
     });
   }
 
+  const handleGoToDashboardLoja = () => {
+    router.push({
+      pathname: '/dashboard-loja'
+    });
+  }
+
   const onSubmitHandler = async event => {
     event.preventDefault();
     await usuarioService.createUser({ email, password: senha, flg_admin: true });
     await usuarioService.authenticate({ email, password: senha });
-    const lojaCadastrada = await cadastroLojaService.createStore({ nome, email, cnpj, color_standard: cor });
-    console.log(lojaCadastrada);
+    const { status } = await cadastroLojaService.createStore({ nome, email, cnpj, color_standard: cor });
+    if (status === 200) {
+      toast.notify('Loja criada com sucesso', { duration: 5, type: "success", title: "Sucesso!" });
+      // handleGoToDashboardLoja();
+    }
   }
 
   return (
     <>
+      <ToastContainer/>
       <AppBar color="secondary" position="static">
         <Toolbar>
           <IconButton edge="start" onClick={handleGoToLogin} color="inherit" aria-label="menu">
