@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import { faArrowLeft, faFileSignature } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router'
+import { cadastroLojaService } from '../services/cadastro-loja'
 
 import ImageUpload from '../components/imageUpload'
 import styles from '../styles/pages/cadastroLoja.module.css'
@@ -80,7 +81,7 @@ const CadastroLojas: React.FC = () => {
               name="cor"
               value={cor}
               onChange={event => setCor(event.target.value)} />
-            <Button className={styles.button} variant="contained" color="secondary" type="submit">
+            <Button className={styles.button} onClick={() => cadastroLojaService.createUser()} variant="contained" color="secondary" type="submit">
               Cadastrar
             </Button>
           </form>
