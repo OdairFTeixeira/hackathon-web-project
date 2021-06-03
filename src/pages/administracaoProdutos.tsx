@@ -4,12 +4,17 @@ import { faPlus, faEdit, faTrash, faStore } from '@fortawesome/free-solid-svg-ic
 import React from 'react';
 
 import styles from '../styles/pages/administracaoProdutos.module.css';
+import { useRouter } from 'next/router';
 
 const AdministracaoProdutos: React.FC = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const router = useRouter();
 
-    const handleEditar = (event) => {
+    const handleRedirectCadastroProduto = () => {
+      router.push({
+        pathname: '/cadastroProdutos'
+      });
     }
 
     const rows = [
@@ -135,7 +140,7 @@ const AdministracaoProdutos: React.FC = () => {
                 <h1>Administração Produtos</h1>
             </div>
             <div className={styles.divBotao}>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={handleRedirectCadastroProduto}>
                     <div className={styles.plusIcon}>
                         <FontAwesomeIcon icon={faPlus} />
                     </div>
@@ -165,8 +170,8 @@ const AdministracaoProdutos: React.FC = () => {
                                         <TableCell align="right">{row.preco}</TableCell>
                                         <TableCell align="right">{row.quantidade}</TableCell>
                                         <TableCell align="right"><FontAwesomeIcon icon={faStore} /></TableCell>
-                                        <TableCell align="right" onClick={event => handleEditar(event)}><FontAwesomeIcon icon={faEdit} /></TableCell>
-                                        <TableCell align="right"><FontAwesomeIcon icon={faTrash} /></TableCell>
+                                        <TableCell align="right" ><FontAwesomeIcon icon={faEdit} /></TableCell>
+                                        <TableCell align="right" ><FontAwesomeIcon icon={faTrash}  /></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
