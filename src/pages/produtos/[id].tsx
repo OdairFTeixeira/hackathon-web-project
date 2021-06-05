@@ -1,9 +1,12 @@
-import { AppBar, InputLabel, Select, TextField, Toolbar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
-import Produto from '../components/produto';
-import styles from '../styles/pages/produtosLoja.module.css';
+import { useRouter } from 'next/router';
+import { AppBar, InputLabel, Select, TextField, Toolbar } from '@material-ui/core';
+import Produto from '../../components/produto';
+import styles from '../../styles/pages/produtosLoja.module.css';
 
 const ProdutosLoja: React.FC = () => {
+  const router = useRouter();
+  const [ prefix, setPrefix ] = useState(null);
   const [filtro, setFiltro] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [ordenacao, setOrdenacao] = useState('');
@@ -53,7 +56,13 @@ const ProdutosLoja: React.FC = () => {
 
   useEffect(() => {
     setProdutos(produtosMockedList);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (router.asPath !== router.route) {
+      setPrefix(router.query.id);
+    }
+  }, [router])
 
   return (<>
 
@@ -99,6 +108,5 @@ const ProdutosLoja: React.FC = () => {
     </section>
   </>);
 }
-
 
 export default ProdutosLoja;
