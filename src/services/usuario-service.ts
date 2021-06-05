@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import api from './api';
 
 class usuarioService {
@@ -10,12 +11,10 @@ class usuarioService {
   }
 
   static async authenticate({ email, password }) {
-    const { data: response } = await api.post('/auth', {
+    return await api.post('/auth', {
       email,
       password
-    });
-    localStorage.setItem('token_integracao', response.token);
-    console.log(response.token);
+    }).catch(err => {console.log(err); toast.warn('Os dados de login estão incorretos', { style: { backgroundColor: '#C79F3C' } })});
   }
 }
 

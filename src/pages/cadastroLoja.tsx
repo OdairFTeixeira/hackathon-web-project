@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import { faArrowLeft, faFileSignature } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/router'
-import { ToastContainer, toast } from 'react-nextjs-toast'
+import { useRouter } from 'next/router';
 
 import ImageUpload from '../components/imageUpload'
 import styles from '../styles/pages/cadastroLoja.module.css'
@@ -18,6 +17,7 @@ const CadastroLojas: React.FC = () => {
   const [cnpj, setCnpj] = useState('');
   const [imagem, setImagem] = useState('');
   const [cor, setCor] = useState('');
+  const [prefixo, setPrefixo] = useState('');
 
   const handleGoToLogin = () => {
     router.push({
@@ -33,18 +33,16 @@ const CadastroLojas: React.FC = () => {
 
   const onSubmitHandler = async event => {
     event.preventDefault();
-    await usuarioService.createUser({ email, password: senha, flg_admin: true });
-    await usuarioService.authenticate({ email, password: senha });
-    const { status } = await cadastroLojaService.createStore({ nome, email, cnpj, color_standard: cor });
+    const { status, data } = await cadastroLojaService.createStore({ nome, password: senha, email, cnpj, color_standard: cor, prefix: prefixo });
     if (status === 200) {
-      toast.notify('Loja criada com sucesso', { duration: 5, type: "success", title: "Sucesso!" });
+      localStorage.setItem('token_integracao', data.token);
+      alert('goToDash')
       // handleGoToDashboardLoja();
     }
   }
 
   return (
     <>
-      <ToastContainer/>
       <AppBar color="secondary" position="static">
         <Toolbar>
           <IconButton edge="start" onClick={handleGoToLogin} color="inherit" aria-label="menu">
@@ -93,6 +91,13 @@ const CadastroLojas: React.FC = () => {
               name="cnpj"
               value={cnpj}
               onChange={event => setCnpj(event.target.value)} />
+            <TextField
+              className={styles.input}
+              label="Prefixo"
+              fullWidth={true}
+              name="prefixo"
+              value={prefixo}
+              onChange={event => setPrefixo(event.target.value)} />
             <ImageUpload label="Logo" />
             <TextField
               className={styles.input}
