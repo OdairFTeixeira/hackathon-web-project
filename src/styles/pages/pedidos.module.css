@@ -1,0 +1,13 @@
+.divBotao {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem;
+}
+
+.containerGrid, .divTitulo {
+    margin: 1rem;
+}
+
+.plusIcon {
+    padding: 0.25rem;
+}
