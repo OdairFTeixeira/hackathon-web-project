@@ -64,7 +64,7 @@ const CadastroLojas: React.FC = () => {
             </div>
             <TextField
               className={styles.input}
-              name="nome" value={nome}
+              name="nome" value={nome} 
               label="Nome da sua loja"
               fullWidth={true}
               onChange={event => setNome(event.target.value)} />

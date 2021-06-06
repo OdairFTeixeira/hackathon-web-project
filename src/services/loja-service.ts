@@ -31,6 +31,14 @@ class cadastroLojaService {
   static async findByPrefix(prefix: string) {
     return await api.get('/stores/prefix', { params: { prefix } });
   }
+
+  static async findStore() {
+    return await api.get('/stores', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token_integracao')}`
+      }
+    });
+  }
 }
 
 export { cadastroLojaService };
