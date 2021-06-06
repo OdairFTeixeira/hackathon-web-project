@@ -1,0 +1,135 @@
+
+.center{
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+margin-top: 9%;
+
+
+}
+
+
+.div{
+    padding: 0px;
+    margin: 10px 10px;
+    box-shadow: 0 0 1em rgb(255, 255, 255);
+    /* border: 1px solid black; */
+    height: 457px;
+    width: 344px;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 40px;
+    
+}
+.container{
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    /* border: 1px solid black; */
+    height: 100%;
+    /* width: 1000px; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.imagem{
+    padding: 5px;
+    display: flex;
+    height: 340px;
+    width: 340px;
+    
+
+}
+.titulo{
+    display: inline-flex;
+    padding: 5px;
+    color: rgb(0, 0, 0);
+    font-size: 45px;
+}
+.estoque{
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0px;
+    display: flex;
+}
+.carrinho{
+    background-color: rgb(209, 242, 255) !important;
+    color: #2176D2 !important;
+    width: 100%;
+    height: 50px;
+    margin-top: 4px !important;
+}
+.compra{
+    
+    width: 100%;
+    height: 50px;
+    margin-top: 2px !important;
+    
+}
+
+.compras{
+    margin-top: 90%;
+    padding: 5px;
+    width: 100%;
+    
+
+}
+.valor{
+    color: rgb(0, 221, 0);
+    font-size: 30px;
+    width: 100%;
+    margin: 5px;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.descricao{
+    width: 100%;
+    margin: 5px;
+    font-size: 19px;
+    margin-top: 10px;
+}
+@media screen and (max-width:845px){
+
+    .div{
+        padding: 0px;
+        box-shadow: 0 0 1em rgb(255, 255, 255);
+        /* border: 1px solid black; */
+        height: 457px;
+        width: 344px;
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 40px;
+        
+    }
+    .container{
+        background-color: white;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+        /* border: 1px solid black; */
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+    }
+
+    .center{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        margin-top: 9%;
+        margin-bottom: 9%;
+        
+        
+        }
+}           
+

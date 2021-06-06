@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import { faArrowLeft, faFileSignature } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 import ImageUpload from '../components/imageUpload'
 import styles from '../styles/pages/cadastroLoja.module.css'
+import { usuarioService } from '../services/usuario-service';
+import { cadastroLojaService } from '../services/cadastro-loja-service';
 
 const CadastroLojas: React.FC = () => {
   const router = useRouter();
   const [nome, setNome] = useState('');
   const [senha, setSenha] = useState('');
   const [email, setEmail] = useState('');
+  const [cnpj, setCnpj] = useState('');
   const [imagem, setImagem] = useState('');
   const [cor, setCor] = useState('');
+  const [prefixo, setPrefixo] = useState('');
 
   const handleGoToLogin = () => {
     router.push({
@@ -21,10 +25,20 @@ const CadastroLojas: React.FC = () => {
     });
   }
 
-  const onSubmitHandler = event => {
-    event.preventDefault();
+  const handleGoToDashboardLoja = () => {
+    router.push({
+      pathname: '/dashboard-loja'
+    });
+  }
 
-    console.log({ nome, email, senha, imagem, cor });
+  const onSubmitHandler = async event => {
+    event.preventDefault();
+    const { status, data } = await cadastroLojaService.createStore({ nome, password: senha, email, cnpj, color_standard: cor, prefix: prefixo });
+    if (status === 200) {
+      localStorage.setItem('token_integracao', data.token);
+      alert('goToDash')
+      // handleGoToDashboardLoja();
+    }
   }
 
   return (
@@ -70,6 +84,20 @@ const CadastroLojas: React.FC = () => {
               name="senha"
               value={senha}
               onChange={event => setSenha(event.target.value)} />
+            <TextField
+              className={styles.input}
+              label="CNPJ"
+              fullWidth={true}
+              name="cnpj"
+              value={cnpj}
+              onChange={event => setCnpj(event.target.value)} />
+            <TextField
+              className={styles.input}
+              label="Prefixo"
+              fullWidth={true}
+              name="prefixo"
+              value={prefixo}
+              onChange={event => setPrefixo(event.target.value)} />
             <ImageUpload label="Logo" />
             <TextField
               className={styles.input}
