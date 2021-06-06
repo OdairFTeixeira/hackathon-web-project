@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import ImageUpload from '../components/imageUpload'
 import styles from '../styles/pages/cadastroLoja.module.css'
 import { usuarioService } from '../services/usuario-service';
-import { cadastroLojaService } from '../services/cadastro-loja-service';
+import { cadastroLojaService } from '../services/loja-service';
 
 const CadastroLojas: React.FC = () => {
   const router = useRouter();

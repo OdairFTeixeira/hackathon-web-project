@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/components/produto.module.css';
-import imgagemEscolhida from './gin-com-morango-1.png';
+import imgagemEscolhida from '../assets/imagemDefault.jpeg';
 import { Box, Button } from '@material-ui/core';
 
 interface ProdutoProps {
