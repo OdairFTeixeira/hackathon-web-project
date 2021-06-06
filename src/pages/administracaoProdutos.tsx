@@ -17,10 +17,14 @@ const AdministracaoProdutos: React.FC = () => {
       });
     }
 
+    const handleVenda = (row) => {
+        console.log(event);
+    }
+
     const rows = [
-        {
+        {   
             nome: 'Gin',
-            preco: 18.90,
+            preco: 18.90, 
             quantidade: 2,
         },
         {
@@ -169,7 +173,7 @@ const AdministracaoProdutos: React.FC = () => {
                                         </TableCell>
                                         <TableCell align="right">{row.preco}</TableCell>
                                         <TableCell align="right">{row.quantidade}</TableCell>
-                                        <TableCell align="right"><FontAwesomeIcon icon={faStore} /></TableCell>
+                                        <TableCell align="right" onClick={() => handleVenda(row)} ><FontAwesomeIcon icon={faStore} /></TableCell>
                                         <TableCell align="right" ><FontAwesomeIcon icon={faEdit} /></TableCell>
                                         <TableCell align="right" ><FontAwesomeIcon icon={faTrash}  /></TableCell>
                                     </TableRow>
