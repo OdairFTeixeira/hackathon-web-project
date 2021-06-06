@@ -11,10 +11,16 @@ class usuarioService {
   }
 
   static async authenticate({ email, password }) {
-    return await api.post('/auth', {
-      email,
-      password
-    }).catch(err => {console.log(err); toast.warn('Os dados de login estão incorretos', { style: { backgroundColor: '#C79F3C' } })});
+    return await api
+      .post('/auth', {
+        email,
+        password
+      })
+      .catch(() => {
+        toast.warn('Os dados de login estão incorretos', {
+          style: { backgroundColor: '#C79F3C' }
+        });
+      });
   }
 }
 

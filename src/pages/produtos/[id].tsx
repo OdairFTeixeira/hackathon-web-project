@@ -1,66 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { AppBar, InputLabel, Select, TextField, Toolbar } from '@material-ui/core';
+import { AppBar, TextField, Toolbar } from '@material-ui/core';
 import Produto from '../../components/produto';
 import styles from '../../styles/pages/produtosLoja.module.css';
+import { cadastroLojaService } from '../../services/loja-service';
+import { toast } from 'react-toastify';
 
 const ProdutosLoja: React.FC = () => {
   const router = useRouter();
-  const [ prefix, setPrefix ] = useState(null);
+  const [ loja, setLoja ] = useState({});
   const [filtro, setFiltro] = useState('');
   const [produtos, setProdutos] = useState([]);
-  const [ordenacao, setOrdenacao] = useState('');
+  const [listaProdutos, setListaProdutos] = useState([]);
 
   const handleFiltro = event => {
-    setProdutos(produtosMockedList.filter(produto => produto.nome.toLowerCase().startsWith(event.target.value.toLowerCase())));
+    setProdutos(listaProdutos.filter(produto => produto.nome.toLowerCase().startsWith(event.target.value.toLowerCase())));
     setFiltro(event.target.value);
   }
 
-  const handleOrdenacao = event => {
-    //Fazer requisicao ordenando conforme value
-    setOrdenacao(event.target.value);
-  }
-
-  const produtosMockedList = [
-    {
-      key: 1,
-      nome: 'Gin',
-      preco: 18.90,
-      descricao: 'lorem loremk lorem pra caralho meu deus tenta aqui pelo amor de deus nao aguento mais'
-    },
-    {
-      key: 2,
-      nome: 'teste',
-      preco: 18.90,
-      descricao: 'lorem loremk lorem pra caralho meu deus tenta aqui pelo amor de deus nao aguento mais'
-    },
-    {
-      key: 3,
-      nome: 'paçoca',
-      preco: 16.05,
-      descricao: 'lorem loremk lorem pra caralho meu deus tenta aqui pelo amor de deus nao aguento mais'
-    },
-    {
-      key: 4,
-      nome: 'banana',
-      preco: 22.90,
-      descricao: 'lorem loremk lorem pra caralho meu deus tenta aqui pelo amor de deus nao aguento mais'
-    },
-    {
-      key: 5,
-      nome: 'paralelepipido',
-      preco: 180.90,
-      descricao: 'lorem loremk lorem pra caralho meu deus tenta aqui pelo amor de deus nao aguento mais'
+  useEffect(() => {
+    const getProdutosByPrefix = async () => {
+      const prefix: string = router.query.id.toString();
+      const { data } = await cadastroLojaService.findByPrefix(prefix);
+      if (data.length >= 1) {
+        console.log('data');
+        setLoja(data[0]);
+        setListaProdutos(data[0].products);
+        setProdutos(data[0].products);
+        alterHeaderColor(document.getElementsByClassName('MuiAppBar-colorSecondary')[0], data[0].color_standard);
+      }
     }
-  ]
 
-  useEffect(() => {
-    setProdutos(produtosMockedList);
-  }, []);
+    function alterHeaderColor(header: any, color) {
+      if (header) {
+        header.style.backgroundColor = color;
+      }
+    }
 
-  useEffect(() => {
     if (router.asPath !== router.route) {
-      setPrefix(router.query.id);
+      getProdutosByPrefix();  
     }
   }, [router])
 
@@ -68,44 +46,35 @@ const ProdutosLoja: React.FC = () => {
 
     <AppBar color="secondary" position="static">
       <Toolbar>
-          Login
+          {loja && loja.nome}
       </Toolbar>
     </AppBar>
+
+
     <div className={styles.containerTopo}>
-      <h1>Produtos</h1>
       <div className={styles.containerFiltro}>
         <TextField 
+        fullWidth={true}
         className={styles.filtro} 
         value={filtro} 
         onChange={event => handleFiltro(event)} 
         id="standard-basic" 
-        label="Pesquisa Produtos" />
-        <div className={styles.ordenacao}>
-          <InputLabel htmlFor="age-native-simple">Ordenacao</InputLabel>
-          <Select
-            native
-            value={ordenacao}
-            onChange={event => handleOrdenacao(event)}
-
-          >
-            <option aria-label="None" value="" />
-            <option value="ME">Menor Preço</option>
-            <option value="MA">Maior Preço</option>
-            <option value="OA">Ordem Alfabética</option>
-          </Select>
-        </div>
+        label="Pesquisar Produto" />
       </div>
     </div>
 
-    <section className={styles.containerCorpo}>
-      {produtos.map(produto => (
-        <Produto key={produto.key}
-          nome={produto.nome}
-          descricao={produto.descricao}
-          preco={produto.preco}
-        />
-      ))}
-    </section>
+    <div className={styles.content}>
+      <section className={styles.containerCorpo}>
+        {produtos.map(produto => (
+          <Produto key={produto.id}
+            nome={produto.nome}
+            descricao={produto.descricao}
+            preco={produto.valor}
+          />
+        ))}
+      </section>
+    </div>
+
   </>);
 }
 

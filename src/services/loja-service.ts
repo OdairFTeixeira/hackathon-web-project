@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import api from './api';
 
 class cadastroLojaService {
@@ -25,6 +26,10 @@ class cadastroLojaService {
         }
       }
     );
+  }
+
+  static async findByPrefix(prefix: string) {
+    return await api.get('/stores/prefix', { params: { prefix } });
   }
 }
 
