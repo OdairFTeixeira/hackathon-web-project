@@ -1,8 +1,9 @@
 import { AppBar, Button, TextField, Toolbar } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageUpload from '../components/imageUpload';
 import styles from '../styles/pages/cadastroProdutos.module.css';
 import { ProdutosService } from '../services/produtos-service';
+import { cadastroLojaService } from '../services/loja-service';
 
 const CadastroProdutos: React.FC = () => {
     const [codBarras, setCodBarras] = useState('');
@@ -10,11 +11,19 @@ const CadastroProdutos: React.FC = () => {
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
+    let store_id = '';
+
+
+    useEffect(() => {
+        cadastroLojaService.findStore().then(resp => {
+            store_id = resp.data[0].id;
+        });
+      }, []);
 
     const onSubmitHandler = event => {
         event.preventDefault();
 
-        ProdutosService.createProduct({codBarras, estoque, nome, valor , descricao})
+        ProdutosService.createProduct({codBarras, estoque, nome, valor , descricao, store_id});
     }
 
     return (
