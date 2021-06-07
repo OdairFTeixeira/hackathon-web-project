@@ -11,19 +11,18 @@ const CadastroProdutos: React.FC = () => {
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
-    let store_id = '';
+    const [storeId, setStoreId] = useState('');
 
 
     useEffect(() => {
         cadastroLojaService.findStore().then(resp => {
-            store_id = resp.data[0].id;
+            setStoreId(resp.data[0].id);
         });
       }, []);
 
     const onSubmitHandler = event => {
         event.preventDefault();
-
-        ProdutosService.createProduct({codBarras, estoque, nome, valor , descricao, store_id});
+        ProdutosService.createProduct({estoque, nome, valor , descricao, store_id: storeId});
     }
 
     return (

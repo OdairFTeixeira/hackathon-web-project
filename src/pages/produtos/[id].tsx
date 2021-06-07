@@ -23,7 +23,6 @@ const ProdutosLoja: React.FC = () => {
       const prefix: string = router.query.id.toString();
       const { data } = await cadastroLojaService.findByPrefix(prefix);
       if (data.length >= 1) {
-        console.log('data');
         setLoja(data[0]);
         setListaProdutos(data[0].products);
         setProdutos(data[0].products);
