@@ -1,15 +1,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppBar, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Toolbar } from '@material-ui/core';
 import { faPlus, faEdit, faTrash, faStore } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styles from '../styles/pages/administracaoProdutos.module.css';
 import { useRouter } from 'next/router';
+import { cadastroLojaService } from '../services/loja-service';
 
 const AdministracaoProdutos: React.FC = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [produtos, setProdutos] = React.useState([]);
     const router = useRouter();
+
+    useEffect(() => {
+        cadastroLojaService.findStore().then(resp => {
+            setProdutos(resp.data[0].products);
+            console.log(resp);
+        });
+
+        console.log(produtos);
+        //console.log(ProdutosService.findProducts());
+    }, []);
 
     const handleRedirectCadastroProduto = () => {
       router.push({
@@ -166,13 +178,13 @@ const AdministracaoProdutos: React.FC = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                                {produtos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                                     <TableRow key={row.nome}>
                                         <TableCell component="th" scope="row">
                                             {row.nome}
                                         </TableCell>
-                                        <TableCell align="right">{row.preco}</TableCell>
-                                        <TableCell align="right">{row.quantidade}</TableCell>
+                                        <TableCell align="right">{parseFloat(row.valor).toFixed(2)}</TableCell>
+                                        <TableCell align="right">{row.estoque}</TableCell>
                                         <TableCell align="right" onClick={() => handleVenda(row)} ><FontAwesomeIcon icon={faStore} /></TableCell>
                                         <TableCell align="right" ><FontAwesomeIcon icon={faEdit} /></TableCell>
                                         <TableCell align="right" ><FontAwesomeIcon icon={faTrash}  /></TableCell>
@@ -184,7 +196,7 @@ const AdministracaoProdutos: React.FC = () => {
                     <TablePagination
                         rowsPerPageOptions={[10, 25, 100]}
                         component="div"
-                        count={rows.length}
+                        count={produtos.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onChangePage={handleChangePage}
