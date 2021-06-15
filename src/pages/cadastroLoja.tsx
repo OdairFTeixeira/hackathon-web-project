@@ -27,7 +27,7 @@ const CadastroLojas: React.FC = () => {
 
   const handleGoToDashboardLoja = () => {
     router.push({
-      pathname: '/dashboard-loja'
+      pathname: '/administracaoProdutos'
     });
   }
 
@@ -36,8 +36,7 @@ const CadastroLojas: React.FC = () => {
     const { status, data } = await cadastroLojaService.createStore({ nome, password: senha, email, cnpj, color_standard: cor, prefix: prefixo });
     if (status === 200) {
       localStorage.setItem('token_integracao', data.token);
-      alert('goToDash')
-      // handleGoToDashboardLoja();
+      handleGoToDashboardLoja()
     }
   }
 

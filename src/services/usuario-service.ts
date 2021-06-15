@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 import api from './api';
 
 class usuarioService {
@@ -9,19 +8,12 @@ class usuarioService {
       flg_admin
     });
   }
-
-  static async authenticate({ email, password }) {
-    return await api
-      .post('/auth', {
-        email,
-        password
-      })
-      .catch(() => {
-        toast.warn('Os dados de login estão incorretos', {
-          style: { backgroundColor: '#C79F3C' }
-        });
-      });
-  }
 }
 
 export { usuarioService };
+
+//.catch(() => {
+//  toast.warn('Os dados de login estão incorretos', {
+//    style: { backgroundColor: '#C79F3C' }
+//  });
+//});

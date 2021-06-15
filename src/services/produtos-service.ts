@@ -12,6 +12,13 @@ class ProdutosService {
       }
     );
   }
+
+  static async teste({ email, password }: any) {
+    return await api.post('/auth', {
+      email,
+      password
+    });
+  }
 }
 
 export { ProdutosService };
