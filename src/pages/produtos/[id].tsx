@@ -4,7 +4,6 @@ import { AppBar, TextField, Toolbar } from '@material-ui/core';
 import Produto from '../../components/produto';
 import styles from '../../styles/pages/produtosLoja.module.css';
 import { cadastroLojaService } from '../../services/loja-service';
-import { toast } from 'react-toastify';
 
 const ProdutosLoja: React.FC = () => {
   const router = useRouter();

@@ -8,6 +8,13 @@ class usuarioService {
       flg_admin
     });
   }
+
+  static async authenticate({ email, password }) {
+    return await api.post('/auth', {
+      email,
+      password
+    });
+  }
 }
 
 export { usuarioService };

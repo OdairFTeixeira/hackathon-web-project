@@ -9,7 +9,6 @@ import styles from '../styles/pages/login.module.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { usuarioService } from '../services/usuario-service';
 import { cadastroLojaService } from '../services/loja-service';
-import { ProdutosService } from '../services/produtos-service';
 
 const Login: React.FC = () => {
   const [ senha, setSenha ] = useState(null);
@@ -35,11 +34,13 @@ const Login: React.FC = () => {
       toast.info("O preenchimento de todos os campos é obrigatório!")
       return;
     }
-
-    const password = senha;
-    ProdutosService.teste({ email, password }).then((teste) => {
-      console.log(teste);
-    });
+    const response: any = await usuarioService.authenticate({ email, password: senha })
+    if (response.status === 200) {
+      localStorage.setItem('token_integracao', response.token);
+      router.push({
+        pathname: '/cadastroLoja'
+      });
+    }
   }
 
   return (
