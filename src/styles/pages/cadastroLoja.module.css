@@ -28,10 +28,17 @@
   margin-right: 10px;
 }
 
-.button {
-  margin-top: 15px !important;
+.botao {
+  margin: 15px !important;
 }
 
 .input {
   margin-top: 5px;
+}
+
+.divButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
 }

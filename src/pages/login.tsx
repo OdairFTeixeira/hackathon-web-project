@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import styles from '../styles/pages/login.module.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { usuarioService } from '../services/usuario-service';
-import { cadastroLojaService } from '../services/loja-service';
 
 const Login: React.FC = () => {
   const [ senha, setSenha ] = useState(null);
@@ -31,8 +30,9 @@ const Login: React.FC = () => {
     const response: any = await usuarioService.authenticate({ email, password: senha })
     if (response.status === 200) {
       localStorage.setItem('token_integracao', response.token);
-      alert('logado')
-      // go to dash
+      router.push({
+        pathname: '/cadastroLoja'
+      });
     }
   }
 

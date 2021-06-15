@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import styles from '../styles/pages/administracaoProdutos.module.css';
 import { useRouter } from 'next/router';
 import { cadastroLojaService } from '../services/loja-service';
+import { ProdutosService } from '../services/produtos-service';
 
 const AdministracaoProdutos: React.FC = () => {
     const [page, setPage] = React.useState(0);
@@ -16,11 +17,7 @@ const AdministracaoProdutos: React.FC = () => {
     useEffect(() => {
         cadastroLojaService.findStore().then(resp => {
             setProdutos(resp.data[0].products);
-            console.log(resp);
         });
-
-        console.log(produtos);
-        //console.log(ProdutosService.findProducts());
     }, []);
 
     const handleRedirectCadastroProduto = () => {
@@ -29,112 +26,25 @@ const AdministracaoProdutos: React.FC = () => {
       });
     }
 
-    const handleVenda = (row) => {
-        console.log(event);
+    const handleEdit = (row) => {
+        router.push({
+            pathname: `/cadastroProdutos/[id]`,
+            query: { id: row.id }
+          });
     }
 
-    const rows = [
-        {   
-            nome: 'Gin',
-            preco: 18.90, 
-            quantidade: 2,
-        },
-        {
-            nome: 'teste',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asda',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'wsqwdwq',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asd2',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'Gin2',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'teste2',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asda2',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'wsqwdwq2',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asd23',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'Gin3',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'teste3',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asda3',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'wsqwdwq3',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asd24',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'Gin24',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'teste24',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asda25',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'wsqwdwq2as',
-            preco: 18.90,
-            quantidade: 2,
-        },
-        {
-            nome: 'asd23dd',
-            preco: 18.90,
-            quantidade: 2,
-        }
-    ]
+    const handleVenda = (row) => {
+        router.push({
+            pathname: `/venda/[id]`,
+            query: { id: row.id }
+          });
+    }
+
+    const handleExclud = async row => {
+        await ProdutosService.deleteProduct(row.id);
+
+        setProdutos(produtos.filter(produto => produto.id != row.id));
+    }
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -185,9 +95,9 @@ const AdministracaoProdutos: React.FC = () => {
                                         </TableCell>
                                         <TableCell align="right">{parseFloat(row.valor).toFixed(2)}</TableCell>
                                         <TableCell align="right">{row.estoque}</TableCell>
-                                        <TableCell align="right" onClick={() => handleVenda(row)} ><FontAwesomeIcon icon={faStore} /></TableCell>
-                                        <TableCell align="right" ><FontAwesomeIcon icon={faEdit} /></TableCell>
-                                        <TableCell align="right" ><FontAwesomeIcon icon={faTrash}  /></TableCell>
+                                        <TableCell align="right" onClick={() => handleVenda(row)} ><FontAwesomeIcon className={styles.pointer} icon={faStore} /></TableCell>
+                                        <TableCell align="right" onClick={() => handleEdit(row)} ><FontAwesomeIcon className={styles.pointer} icon={faEdit} /></TableCell>
+                                        <TableCell align="right" onClick={() => handleExclud(row)} ><FontAwesomeIcon className={styles.pointer} icon={faTrash}  /></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

@@ -1,35 +1,42 @@
 .container {
-    height: 40rem;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  height: 40rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .dadosRow {
-    display: flex;
-    flex-direction: row;
-    margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
 }
 
 .imageUpload {
-    width: 30rem;
-    margin-bottom: 1rem;
+  width: 30rem;
+  margin-bottom: 1rem;
 }
 
 .descricao {
-    width: 30rem;
+  width: 30rem;
 }
 
 .codBarrasContainer {
-    padding-right: 1rem;
+  padding-right: 1rem;
 }
 
 .codBarrasNome {
-    width: 22rem;
+  width: 22rem;
 }
 
 .estoqueValor {
-    width: 7rem;
+  width: 7rem;
+}
+
+.divButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30rem;
 }
