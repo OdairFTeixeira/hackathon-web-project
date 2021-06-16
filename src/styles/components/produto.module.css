@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: 2rem;
-    height: 23rem;
+    height: 22rem;
     width: 15rem;
 }
 
@@ -19,6 +19,7 @@
 }
 
 .nome {
+    font-size: 18px;
     padding-left: 0.5rem;
 }
 
@@ -37,7 +38,7 @@
     display: flex;
     flex-direction: column; 
     align-items: center;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 
 .preco {

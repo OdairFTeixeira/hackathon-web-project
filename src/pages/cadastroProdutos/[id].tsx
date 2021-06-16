@@ -22,9 +22,9 @@ const CadastroProdutos: React.FC = () => {
     });
 
     if (router.asPath !== router.route) {
-      ProdutosService.getProduct(router.query.id.toString()).then(resp => {
-        preencheCampos(resp);
-      });
+      if (router.query.id.toString() && router.query.id.toString() !== '1') {
+        ProdutosService.getProduct(router.query.id.toString()).then(resp => preencheCampos(resp));
+      }
     }
   }, [router]);
 

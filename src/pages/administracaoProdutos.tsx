@@ -21,9 +21,10 @@ const AdministracaoProdutos: React.FC = () => {
     }, []);
 
     const handleRedirectCadastroProduto = () => {
-      router.push({
-        pathname: '/cadastroProdutos'
-      });
+        router.push({
+            pathname: `/cadastroProdutos/[id]`,
+            query: { id: 1 }
+          });
     }
 
     const handleEdit = (row) => {

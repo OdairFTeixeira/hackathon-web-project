@@ -65,6 +65,7 @@ const ProdutosLoja: React.FC = () => {
       <section className={styles.containerCorpo}>
         {produtos.map(produto => (
           <Produto key={produto.id}
+            id={produto.id}
             nome={produto.nome}
             descricao={produto.descricao}
             preco={produto.valor}
